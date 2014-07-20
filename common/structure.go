@@ -6,8 +6,10 @@ type Piece struct {
 	Movements []Movement `json:"movements"`
 }
 
+// Measure represents a measure of music
 // Movement represents a movement from a piece of music
 type Movement struct {
 	Index      uint8       `json:"index"`
 	KeyChanges []KeyChange `json:"keyChanges"`
+	Measures   []Measure   `json:"measures"`
 }
