@@ -1,4 +1,4 @@
-package common
+package core
 
 var (
 	// these represent the pitch alterations from a major scale of each of the modes
@@ -19,6 +19,8 @@ type Mode []int8
 
 // Key holds key signature information
 type Key struct {
+	// tonal center
+	Center int8 `json:"center"`
 	// positive numbers are sharps, negative are flats
 	Fifths int8 `json:"fifths"`
 	// 1-7 represent the 7 church modes

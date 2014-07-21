@@ -1,4 +1,4 @@
-package common
+package core
 
 // Piece represents a common practie piece of music
 type Piece struct {
