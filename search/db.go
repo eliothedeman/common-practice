@@ -15,7 +15,6 @@ func NewSearchDb(name string) *SearchDb {
 	m := core.NewManager(1000, name)
 	m.DoneChan = make(chan bool)
 	s.Manager = m
-
 	go s.Manager.Manage()
 	<-m.DoneChan
 	return s
@@ -32,7 +31,12 @@ func (s *SearchDb) Insert(key string, value interface{}) {
 // Select reads a piece of data from the ndb instance
 func (s *SearchDb) Select(key string) interface{} {
 	responseChan := make(chan core.Response)
-	core.RequestChan <- core.Request{Action: 0, Id: key, ResponseChan: responseChan}
+	core.RequestChan <- core.Request{Action: 0, Id: key, ResponseChanl: responseChan}
 	resp := <-responseChan
 	return resp.Data
+}
+
+// UpdateChildren updates the children of an Index
+func (s *SearchDb) UpdateChildren(key, child *KeyPointer) {
+
 }
