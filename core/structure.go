@@ -6,6 +6,12 @@ type Piece struct {
 	Movements []Movement `json:"movements"`
 }
 
+// Part represents an individuale part in a piece of music i.e. violin 1, trumpet 3
+type Part struct {
+	Name      string     `json:"name"`
+	Movements []Movement `json:"movements"`
+}
+
 // Measure represents a measure of music
 // Movement represents a movement from a piece of music
 type Movement struct {
