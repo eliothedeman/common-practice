@@ -23,17 +23,25 @@ type Index struct {
 
 // lock the mutex
 func (i *Index) lock() {
-	i.lock()
+	i.Mutex.Lock()
 }
 
 // unlock the mutex
 func (i *Index) unlock() {
-	i.unlock()
+	i.Mutex.Unlock()
 }
 
 // UpdateIndex adds a new FetchKey to the index
 func (i *Index) UpdateIndex(k *KeyPointer) {
+
 	i.lock()
 	i.Children[uint64(len(i.Children))] = k
 	i.unlock()
+}
+
+// NewIndex creates and returns a new pointer to an Index
+func NewIndex() *Index {
+	i := &Index{Mutex: &sync.Mutex{}}
+	i.Children = make(map[uint64]*KeyPointer)
+	return i
 }

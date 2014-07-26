@@ -4,20 +4,27 @@ import (
 	"testing"
 )
 
+const (
+	TEST_KEY = "test"
+)
+
 var (
 	s *SearchDb
 )
 
+// TestSplitData tests the TestSplitData function
 func TestSplitData(t *testing.T) {
 	d := "asdfgasdfasdkfjasldkjfal;sdjf;alsdkf"
 	SplitData(d)
 }
 
+// TestInsert tests the Insert function
 func TestInsert(t *testing.T) {
 	s = NewSearchDb("testing")
 	s.Insert("test", 1)
 }
 
+// TestSelect tests the Select function
 func TestSelect(t *testing.T) {
 	expected := 1
 	if expected != s.Select("test") {
@@ -26,6 +33,7 @@ func TestSelect(t *testing.T) {
 	}
 }
 
+// TestMultipleManagers makes sure multiple managers don't have cross-talk
 func TestMultipleManagers(t *testing.T) {
 	one := NewSearchDb("one")
 	two := NewSearchDb("two")
@@ -35,6 +43,27 @@ func TestMultipleManagers(t *testing.T) {
 		t.Fail()
 	}
 	if two.Select("test") != "two" {
+		t.Fail()
+	}
+}
+
+// TestUpdateChildren makes sure we can still update the children of an index
+func TestUpdateChildren(t *testing.T) {
+	// create the database for testing
+	one := NewSearchDb("one")
+	// insert a new index
+	one.Insert(TEST_KEY, NewIndex())
+	// if we can't update, error out
+	err := one.UpdateChildren(TEST_KEY, &KeyPointer{Key: TEST_KEY, Pointer: 1})
+	if err != nil {
+		t.Log(err)
+		t.Fail()
+	}
+	// make sure the data got added
+	index := one.Select(TEST_KEY)
+	// check that it is the correct type, and it has the correct value
+	if len(index.(*Index).Children) != 1 {
+		t.Log("Child not added. Wrong length: ", len(index.(*Index).Children))
 		t.Fail()
 	}
 }

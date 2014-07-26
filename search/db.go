@@ -1,6 +1,7 @@
 package search
 
 import (
+	"errors"
 	"github.com/eliothedeman/nbd/core"
 )
 
@@ -36,6 +37,13 @@ func (s *SearchDb) Select(key string) interface{} {
 }
 
 // UpdateChildren updates the children of an Index
-func (s *SearchDb) UpdateChildren(key, child *KeyPointer) {
-
+func (s *SearchDb) UpdateChildren(key string, child *KeyPointer) error {
+	element := s.Select(key)
+	switch element.(type) {
+	case *Index:
+		element.(*Index).UpdateIndex(child)
+		return nil
+	default:
+		return errors.New("Index not found")
+	}
 }
