@@ -36,6 +36,17 @@ func (s *SearchDb) Select(key string) interface{} {
 	return resp.Data
 }
 
+// SelectAll grabs all children associated with a key
+func (s *SearchDb) SelectAll(key string) map[uint64]*KeyPointer {
+	elements := s.Select(key)
+	switch elements.(type) {
+	case *Index:
+		return elements.(*Index).Children
+	default:
+		return nil
+	}
+}
+
 // UpdateChildren updates the children of an Index
 func (s *SearchDb) UpdateChildren(key string, child *KeyPointer) error {
 	element := s.Select(key)
@@ -68,17 +79,4 @@ func (s *SearchDb) CreateAndUpdateindicies(dataSet string) error {
 		}
 	}
 	return nil
-}
-
-// SelectAll grabs all children associated with a key
-func (s *SearchDb) SelectAll(key string) []*KeyPointer {
-	elements := s.Select(key)
-	switch elements.(type) {
-	case []*KeyPointer:
-		return elements.([]*KeyPointer)
-	default:
-		return nil
-
-	}
-
 }

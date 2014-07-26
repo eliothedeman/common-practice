@@ -38,12 +38,15 @@ func TestSelect(t *testing.T) {
 // TestSelectAll tests selecting all of the KeyPointers of a given key
 func TestSelectAll(t *testing.T) {
 	one := NewSearchDb("one")
-	err := one.CreateAndUpdateindicies(SELECT_ALL_TEST_DATA)
+	err := one.CreateAndUpdateindicies(TEST_DATA)
 	if err != nil {
 		t.Error(err)
 	}
 	keys := one.SelectAll("j")
-	println(len(keys))
+	// verify the correct number of search results
+	if len(keys) != 45 {
+		t.Error("Wront number of search elements")
+	}
 }
 
 // TestMultipleManagers makes sure multiple managers don't have cross-talk
@@ -114,4 +117,18 @@ func BenchmarkSplitData(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		SplitData(TEST_DATA)
 	}
+}
+
+// BechmarkSelectAllShort test the perforamnce of the SelectAll function
+func BenchmarkSelectAllShort(b *testing.B) {
+	one := NewSearchDb("one")
+	err := one.CreateAndUpdateindicies(SELECT_ALL_TEST_DATA)
+	if err != nil {
+		b.Error(err)
+	}
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		one.SelectAll("j")
+	}
+
 }
