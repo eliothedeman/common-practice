@@ -5,7 +5,8 @@ import (
 )
 
 const (
-	TEST_KEY = "test"
+	TEST_KEY  = "test"
+	TEST_DATA = "laksjdflaksjdflaskjdfl;aksjaksjdfl;akjsdlfkjkajiwuerinwenenwehuuxZJclnwehrherjnwfenaldjfajsdhfkjjjdafsdjfashdfahsdiufhaiwuenncaiwdsuhfiahweurinkjnwdfkjansdufhau9wenfuansdkjfnsdkbaksjdghkasjdfl;ads;flahsdifuhasdfnawdjnwkejnfiawdbgkjasdfkjahsdlfjasldkfjasldghauisdhfunfadsjfnakljbwerkjbakdjchajsdhfkjabdfkjlabdskhfhaksjdfhakjsdhfkjashdfjahcjdncandiufahsdkljf asdjfha dfa sdfasdf asdfhasdf ashdfjasdhfshdf asdfhajsdhijfhaklwjehkcn asd adfhajsdf adsg "
 )
 
 var (
@@ -77,5 +78,28 @@ func TestCreateIndexIfNotExist(t *testing.T) {
 	if len(one.Select("1").(*Index).Children) != 1 {
 		t.Log("Overwrote Index.")
 		t.Fail()
+	}
+}
+
+// TestCreateAndUpdateIndecies makes sure a dataset can be created in the db
+func TestCreateAndUpdateIndecies(t *testing.T) {
+	one := NewSearchDb("one")
+	one.CreateAndUpdateIndecies("laksjdfklajsdflkajsd;lfjka")
+}
+
+// BenchmarkTestCreateAndUpdateINdecies
+func BenchmarkTestCreateAndUpdateIndecies(b *testing.B) {
+	one := NewSearchDb("one")
+	for i := 0; i < b.N; i++ {
+
+		one.CreateAndUpdateIndecies(TEST_DATA)
+	}
+
+}
+
+// BenchmarkSplitData tests performance of SplitData
+func BenchmarkSplitData(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		SplitData(TEST_DATA)
 	}
 }
