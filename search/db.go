@@ -47,3 +47,11 @@ func (s *SearchDb) UpdateChildren(key string, child *KeyPointer) error {
 		return errors.New("Index not found")
 	}
 }
+
+// CreateIndexIfNotExist creates an index in the database if it doesn't already exist
+func (s *SearchDb) CreateIndexIfNotExist(key string) {
+	if s.Select(key) != nil {
+		return
+	}
+	s.Insert(key, NewIndex())
+}

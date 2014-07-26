@@ -67,3 +67,15 @@ func TestUpdateChildren(t *testing.T) {
 		t.Fail()
 	}
 }
+
+// TestCreateIndexIfNotExist tests that indecies are not overwritten by this method
+func TestCreateIndexIfNotExist(t *testing.T) {
+	one := NewSearchDb("one")
+	one.CreateIndexIfNotExist("1")
+	one.UpdateChildren("1", &KeyPointer{Key: TEST_KEY, Pointer: 1})
+	one.CreateIndexIfNotExist("1")
+	if len(one.Select("1").(*Index).Children) != 1 {
+		t.Log("Overwrote Index.")
+		t.Fail()
+	}
+}
