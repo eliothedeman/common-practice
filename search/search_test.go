@@ -22,5 +22,19 @@ func TestSelect(t *testing.T) {
 	expected := 1
 	if expected != s.Select("test") {
 		t.Fail()
+
+	}
+}
+
+func TestMultipleManagers(t *testing.T) {
+	one := NewSearchDb("one")
+	two := NewSearchDb("two")
+	one.Insert("test", "one")
+	two.Insert("test", "two")
+	if one.Select("test") != "one" {
+		t.Fail()
+	}
+	if two.Select("test") != "two" {
+		t.Fail()
 	}
 }
