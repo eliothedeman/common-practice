@@ -69,7 +69,7 @@ func TestUpdateChildren(t *testing.T) {
 	}
 }
 
-// TestCreateIndexIfNotExist tests that indecies are not overwritten by this method
+// TestCreateIndexIfNotExist tests that indicies are not overwritten by this method
 func TestCreateIndexIfNotExist(t *testing.T) {
 	one := NewSearchDb("one")
 	one.CreateIndexIfNotExist("1")
@@ -81,18 +81,18 @@ func TestCreateIndexIfNotExist(t *testing.T) {
 	}
 }
 
-// TestCreateAndUpdateIndecies makes sure a dataset can be created in the db
-func TestCreateAndUpdateIndecies(t *testing.T) {
+// TestCreateAndUpdateindicies makes sure a dataset can be created in the db
+func TestCreateAndUpdateindicies(t *testing.T) {
 	one := NewSearchDb("one")
-	one.CreateAndUpdateIndecies("laksjdfklajsdflkajsd;lfjka")
+	one.CreateAndUpdateindicies("laksjdfklajsdflkajsd;lfjka")
 }
 
-// BenchmarkTestCreateAndUpdateINdecies
-func BenchmarkTestCreateAndUpdateIndecies(b *testing.B) {
+// BenchmarkTestCreateAndUpdateindicies
+func BenchmarkTestCreateAndUpdateindicies(b *testing.B) {
 	one := NewSearchDb("one")
 	for i := 0; i < b.N; i++ {
 
-		one.CreateAndUpdateIndecies(TEST_DATA)
+		one.CreateAndUpdateindicies(TEST_DATA)
 	}
 
 }

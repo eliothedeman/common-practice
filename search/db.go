@@ -56,8 +56,8 @@ func (s *SearchDb) CreateIndexIfNotExist(key string) {
 	s.Insert(key, NewIndex())
 }
 
-// CreateAndUpdateIndecies creates and updates a new set of indecies from a dataset
-func (s *SearchDb) CreateAndUpdateIndecies(dataSet string) {
+// CreateAndUpdateindicies creates and updates a new set of indicies from a dataset
+func (s *SearchDb) CreateAndUpdateindicies(dataSet string) {
 	arr := SplitData(dataSet)
 	for i := 0; i < len(arr); i++ {
 		s.CreateIndexIfNotExist(arr[i].Key)
@@ -66,7 +66,7 @@ func (s *SearchDb) CreateAndUpdateIndecies(dataSet string) {
 }
 
 // SelectAll grabs all children associated with a key
-func (s *SearchDb) SelectAll(key) []*KeyPointer {
+func (s *SearchDb) SelectAll(key string) []*KeyPointer {
 	elements := s.Select(key)
 	switch elements.(type) {
 	case []*KeyPointer:
