@@ -17,7 +17,7 @@ var (
 // TestSplitData tests the TestSplitData function
 func TestSplitData(t *testing.T) {
 	d := "asdfgasdfasdkfjasldkjfal;sdjf;alsdkf"
-	SplitData(d)
+	SplitData(d, "tag")
 }
 
 // TestInsert tests the Insert function
@@ -38,14 +38,14 @@ func TestSelect(t *testing.T) {
 // TestSelectAll tests selecting all of the KeyPointers of a given key
 func TestSelectAll(t *testing.T) {
 	one := NewSearchDb("one")
-	err := one.CreateAndUpdateindicies(TEST_DATA)
+	err := one.CreateAndUpdateindicies(TEST_DATA, "Test")
 	if err != nil {
 		t.Error(err)
 	}
 	keys := one.SelectAll("j")
 	// verify the correct number of search results
 	if len(keys) != 45 {
-		t.Error("Wront number of search elements")
+		t.Error("Wront number of search elements", keys)
 	}
 }
 
@@ -99,7 +99,7 @@ func TestCreateIndexIfNotExist(t *testing.T) {
 // TestCreateAndUpdateindicies makes sure a dataset can be created in the db
 func TestCreateAndUpdateindicies(t *testing.T) {
 	one := NewSearchDb("one")
-	one.CreateAndUpdateindicies("laksjdfklajsdflkajsd;lfjka")
+	one.CreateAndUpdateindicies("laksjdfklajsdflkajsd;lfjka", "Test")
 }
 
 // BenchmarkTestCreateAndUpdateindicies
@@ -107,7 +107,7 @@ func BenchmarkTestCreateAndUpdateindicies(b *testing.B) {
 	one := NewSearchDb("one")
 	for i := 0; i < b.N; i++ {
 
-		one.CreateAndUpdateindicies(TEST_DATA)
+		one.CreateAndUpdateindicies(TEST_DATA, "Benchmark")
 	}
 
 }
@@ -115,14 +115,14 @@ func BenchmarkTestCreateAndUpdateindicies(b *testing.B) {
 // BenchmarkSplitData tests performance of SplitData
 func BenchmarkSplitData(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		SplitData(TEST_DATA)
+		SplitData(TEST_DATA, "tag")
 	}
 }
 
 // BechmarkSelectAllShort test the perforamnce of the SelectAll function
 func BenchmarkSelectAllShort(b *testing.B) {
 	one := NewSearchDb("one")
-	err := one.CreateAndUpdateindicies(SELECT_ALL_TEST_DATA)
+	err := one.CreateAndUpdateindicies(SELECT_ALL_TEST_DATA, "Benchmark")
 	if err != nil {
 		b.Error(err)
 	}
