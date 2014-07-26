@@ -5,8 +5,9 @@ import (
 )
 
 const (
-	TEST_KEY  = "test"
-	TEST_DATA = "laksjdflaksjdflaskjdfl;aksjaksjdfl;akjsdlfkjkajiwuerinwenenwehuuxZJclnwehrherjnwfenaldjfajsdhfkjjjdafsdjfashdfahsdiufhaiwuenncaiwdsuhfiahweurinkjnwdfkjansdufhau9wenfuansdkjfnsdkbaksjdghkasjdfl;ads;flahsdifuhasdfnawdjnwkejnfiawdbgkjasdfkjahsdlfjasldkfjasldghauisdhfunfadsjfnakljbwerkjbakdjchajsdhfkjabdfkjlabdskhfhaksjdfhakjsdhfkjashdfjahcjdncandiufahsdkljf asdjfha dfa sdfasdf asdfhasdf ashdfjasdhfshdf asdfhajsdhijfhaklwjehkcn asd adfhajsdf adsg "
+	TEST_KEY             = "test"
+	TEST_DATA            = "laksjdflaksjdflaskjdfl;aksjaksjdfl;akjsdlfkjkajiwuerinwenenwehuuxZJclnwehrherjnwfenaldjfajsdhfkjjjdafsdjfashdfahsdiufhaiwuenncaiwdsuhfiahweurinkjnwdfkjansdufhau9wenfuansdkjfnsdkbaksjdghkasjdfl;ads;flahsdifuhasdfnawdjnwkejnfiawdbgkjasdfkjahsdlfjasldkfjasldghauisdhfunfadsjfnakljbwerkjbakdjchajsdhfkjabdfkjlabdskhfhaksjdfhakjsdhfkjashdfjahcjdncandiufahsdkljf asdjfha dfa sdfasdf asdfhasdf ashdfjasdhfshdf asdfhajsdhijfhaklwjehkcn asd adfhajsdf adsg "
+	SELECT_ALL_TEST_DATA = "jkjk kkk jkjk kkj"
 )
 
 var (
@@ -32,6 +33,17 @@ func TestSelect(t *testing.T) {
 		t.Fail()
 
 	}
+}
+
+// TestSelectAll tests selecting all of the KeyPointers of a given key
+func TestSelectAll(t *testing.T) {
+	one := NewSearchDb("one")
+	err := one.CreateAndUpdateindicies(SELECT_ALL_TEST_DATA)
+	if err != nil {
+		t.Error(err)
+	}
+	keys := one.SelectAll("j")
+	println(len(keys))
 }
 
 // TestMultipleManagers makes sure multiple managers don't have cross-talk
