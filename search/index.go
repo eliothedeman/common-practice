@@ -6,8 +6,8 @@ import (
 )
 
 type KeyPointer struct {
-	Key     string
-	Pointer int64
+	Key, Val string
+	Pointer  int64
 }
 
 func (k *KeyPointer) String() string {
