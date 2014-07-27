@@ -2,6 +2,7 @@ package searchAPI
 
 import (
 	"encoding/json"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -37,7 +38,7 @@ func Insert(w http.ResponseWriter, r *Request) {
 	if _, ok := DBS[r.Target]; ok {
 		DBS[r.Target].Insert(r.Location, string(r.Data))
 	} else {
-		http.Error(w, "Target does not exist", 500)
+		http.Error(w, "Target does not exist", 400)
 	}
 
 }
@@ -45,9 +46,27 @@ func Insert(w http.ResponseWriter, r *Request) {
 // Select is the APIHandler for th select action
 func Select(w http.ResponseWriter, r *Request) {
 	if _, ok := DBS[r.Target]; ok {
-		DBS[r.Target].Select(string(r.Data))
+		i := DBS[r.Target].Select(string(r.Data))
+		// if the returned value is nil (doesn't exist).
+		// return an empty json set to the client.
+		if i == nil {
+			io.WriteString(w, "{}")
+			return
+		}
+		b, err := json.Marshal(i)
+		if err != nil {
+			http.Error(w, "Bad Data", 500)
+		} else {
+			_, err := io.WriteString(w, string(b))
+			if err != nil {
+				http.Error(w, "", 400)
+			} else {
+				return
+			}
+		}
+
 	} else {
-		http.Error(w, "target does not exist", 500)
+		http.Error(w, "target does not exist", 400)
 	}
 
 }
