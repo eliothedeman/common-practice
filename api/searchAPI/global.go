@@ -1,8 +1,7 @@
-package api
+package searchAPI
 
 import (
 	"github.com/eliothedeman/common-practice/search"
-	"net/http"
 )
 
 var (
@@ -20,10 +19,6 @@ func LoadHandlers() {
 func LoadDbs() {
 	DBS = make(map[string]*search.SearchDb)
 	DBS["pitch"] = search.NewSearchDb("pitch")
-}
-
-// Serve servers the api via http
-func Serve() {
-	http.HandleFunc("/", Route)
-	http.ListenAndServe(":8080", nil)
+	DBS["rhythm"] = search.NewSearchDb("rhythm")
+	DBS["key"] = search.NewSearchDb("key")
 }

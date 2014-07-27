@@ -1,4 +1,4 @@
-package api
+package searchAPI
 
 // Response represents an api response
 

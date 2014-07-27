@@ -2,10 +2,15 @@ package main
 
 import (
 	"github.com/eliothedeman/common-practice/api"
+	"github.com/eliothedeman/common-practice/api/searchAPI"
+)
+
+const (
+	API_PORT = "8080"
 )
 
 func main() {
-	api.LoadHandlers()
-	api.LoadDbs()
-	api.Serve()
+	searchAPI.LoadHandlers()
+	searchAPI.LoadDbs()
+	api.Serve(API_PORT)
 }

@@ -1,4 +1,4 @@
-package api
+package searchAPI
 
 import (
 	"encoding/json"
