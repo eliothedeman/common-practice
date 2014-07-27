@@ -132,3 +132,16 @@ func BenchmarkSelectAllShort(b *testing.B) {
 	}
 
 }
+
+// BenchmarkSelectAllLong test the performance of the SelectAll function with a larger data set
+func BenchmarkSelectAllLong(b *testing.B) {
+	one := NewSearchDb("one")
+	err := one.CreateAndUpdateindicies(TEST_DATA, "Benchmark")
+	if err != nil {
+		b.Error(err)
+	}
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		one.SelectAll("j")
+	}
+}
