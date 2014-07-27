@@ -2,7 +2,6 @@ package searchAPI
 
 import (
 	"encoding/json"
-	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -28,7 +27,6 @@ func Route(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, JSON_FORMATTING_ERROR+err.Error(), 400)
 		return
 	}
-	io.WriteString(w, req.Action)
 	// Route Request by action type
 	HANDLERS[req.Action](w, &req)
 
@@ -36,6 +34,20 @@ func Route(w http.ResponseWriter, r *http.Request) {
 
 // Insert is the APIHandler for the insert action
 func Insert(w http.ResponseWriter, r *Request) {
-	DBS[r.Target].Insert(r.Location, string(r.Data))
-	http.StatusText(http.StatusOK)
+	if _, ok := DBS[r.Target]; ok {
+		DBS[r.Target].Insert(r.Location, string(r.Data))
+	} else {
+		http.Error(w, "Target does not exist", 500)
+	}
+
+}
+
+// Select is the APIHandler for th select action
+func Select(w http.ResponseWriter, r *Request) {
+	if _, ok := DBS[r.Target]; ok {
+		DBS[r.Target].Select(string(r.Data))
+	} else {
+		http.Error(w, "target does not exist", 500)
+	}
+
 }
