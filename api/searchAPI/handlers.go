@@ -2,6 +2,7 @@ package searchAPI
 
 import (
 	"encoding/json"
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -27,6 +28,7 @@ func Route(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, JSON_FORMATTING_ERROR+err.Error(), 400)
 		return
 	}
+	io.WriteString(w, req.Action)
 	// Route Request by action type
 	HANDLERS[req.Action](w, &req)
 

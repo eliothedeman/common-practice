@@ -9,14 +9,12 @@ var (
 	DBS      map[string]*search.SearchDb
 )
 
-// LoadHandlers loads the handlers into the global map
-func LoadHandlers() {
+// setup global vars
+func init() {
+	// set up handlers
 	HANDLERS = make(map[string]APIHandler)
 	HANDLERS["insert"] = Insert
-}
-
-// LoadDbs loads the SearchDbs in to the global map
-func LoadDbs() {
+	// setup SearchDbs
 	DBS = make(map[string]*search.SearchDb)
 	DBS["pitch"] = search.NewSearchDb("pitch")
 	DBS["rhythm"] = search.NewSearchDb("rhythm")
