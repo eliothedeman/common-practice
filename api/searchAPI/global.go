@@ -17,9 +17,12 @@ func init() {
 	HANDLERS["select"] = Select
 	// setup SearchDbs
 	DBS = make(map[string]*search.SearchDb)
-	// Absolute
+	// absolute
 	DBS["a-pitch"] = search.NewSearchDb("a-pitch")
 	DBS["a-rhythm"] = search.NewSearchDb("a-rhythm")
+	// realitive
+	DBS["r-pitch"] = search.NewSearchDb("r-pitch")
+	DBS["r-rhythm"] = search.NewSearchDb("r-rhythm")
 	DBS["rhythm"] = search.NewSearchDb("rhythm")
 	DBS["key"] = search.NewSearchDb("key")
 }
