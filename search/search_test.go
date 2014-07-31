@@ -38,7 +38,7 @@ func TestSelect(t *testing.T) {
 // TestSelectAll tests selecting all of the KeyPointers of a given key
 func TestSelectAll(t *testing.T) {
 	one := NewSearchDb("one")
-	err := one.CreateAndUpdateindicies(TEST_DATA, "Test")
+	err := one.CreateAndUpdateIndicies(TEST_DATA, "Test")
 	if err != nil {
 		t.Error(err)
 	}
@@ -96,18 +96,18 @@ func TestCreateIndexIfNotExist(t *testing.T) {
 	}
 }
 
-// TestCreateAndUpdateindicies makes sure a dataset can be created in the db
-func TestCreateAndUpdateindicies(t *testing.T) {
+// TestCreateAndUpdateIndicies makes sure a dataset can be created in the db
+func TestCreateAndUpdateIndicies(t *testing.T) {
 	one := NewSearchDb("one")
-	one.CreateAndUpdateindicies("laksjdfklajsdflkajsd;lfjka", "Test")
+	one.CreateAndUpdateIndicies("laksjdfklajsdflkajsd;lfjka", "Test")
 }
 
-// BenchmarkTestCreateAndUpdateindicies
-func BenchmarkTestCreateAndUpdateindicies(b *testing.B) {
+// BenchmarkTestCreateAndUpdateIndicies
+func BenchmarkTestCreateAndUpdateIndicies(b *testing.B) {
 	one := NewSearchDb("one")
 	for i := 0; i < b.N; i++ {
 
-		one.CreateAndUpdateindicies(TEST_DATA, "Benchmark")
+		one.CreateAndUpdateIndicies(TEST_DATA, "Benchmark")
 	}
 
 }
@@ -122,7 +122,7 @@ func BenchmarkSplitData(b *testing.B) {
 // BechmarkSelectAllShort test the perforamnce of the SelectAll function
 func BenchmarkSelectAllShort(b *testing.B) {
 	one := NewSearchDb("one")
-	err := one.CreateAndUpdateindicies(SELECT_ALL_TEST_DATA, "Benchmark")
+	err := one.CreateAndUpdateIndicies(SELECT_ALL_TEST_DATA, "Benchmark")
 	if err != nil {
 		b.Error(err)
 	}
@@ -136,7 +136,7 @@ func BenchmarkSelectAllShort(b *testing.B) {
 // BenchmarkSelectAllLong test the performance of the SelectAll function with a larger data set
 func BenchmarkSelectAllLong(b *testing.B) {
 	one := NewSearchDb("one")
-	err := one.CreateAndUpdateindicies(TEST_DATA, "Benchmark")
+	err := one.CreateAndUpdateIndicies(TEST_DATA, "Benchmark")
 	if err != nil {
 		b.Error(err)
 	}

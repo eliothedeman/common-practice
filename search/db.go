@@ -67,8 +67,8 @@ func (s *SearchDb) CreateIndexIfNotExist(key string) {
 	s.Insert(key, NewIndex())
 }
 
-// CreateAndUpdateindicies creates and updates a new set of indicies from a dataset
-func (s *SearchDb) CreateAndUpdateindicies(dataSet, tag string) error {
+// CreateAndUpdateIndicies creates and updates a new set of indicies from a dataset
+func (s *SearchDb) CreateAndUpdateIndicies(dataSet, tag string) error {
 	arr := SplitData(dataSet, tag)
 	var err error
 	for i := 0; i < len(arr); i++ {

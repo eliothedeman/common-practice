@@ -4,7 +4,7 @@ package searchAPI
 
 type Request struct {
 	Action   string  `json:"action"`
-	Data     []uint8 `json:"data"`
+	Data     string  `json:"data"`
 	Version  float32 `json:"version"`
 	Target   string  `json:"target"`
 	Location string  `json:"location"`

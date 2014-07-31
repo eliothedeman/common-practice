@@ -36,8 +36,13 @@ func Route(w http.ResponseWriter, r *http.Request) {
 // Insert is the APIHandler for the insert action
 func Insert(w http.ResponseWriter, r *Request) {
 	if _, ok := DBS[r.Target]; ok {
-		DBS[r.Target].Insert(r.Location, string(r.Data))
+		err := DBS[r.Target].CreateAndUpdateIndicies(r.Data, r.Location)
+		if err != nil {
+			http.Error(w, err.Error(), 500)
+			return
+		}
 	} else {
+		log.Println(DBS[r.Target].Select(r.Data))
 		http.Error(w, "Target does not exist", 400)
 	}
 
@@ -45,8 +50,9 @@ func Insert(w http.ResponseWriter, r *Request) {
 
 // Select is the APIHandler for th select action
 func Select(w http.ResponseWriter, r *Request) {
+	log.Println(r.Data)
 	if _, ok := DBS[r.Target]; ok {
-		i := DBS[r.Target].Select(string(r.Data))
+		i := DBS[r.Target].SelectAll(r.Data)
 		// if the returned value is nil (doesn't exist).
 		// return an empty json set to the client.
 		if i == nil {
@@ -55,7 +61,8 @@ func Select(w http.ResponseWriter, r *Request) {
 		}
 		b, err := json.Marshal(i)
 		if err != nil {
-			http.Error(w, "Bad Data", 500)
+			http.Error(w, "Bad Data "+err.Error(), 500)
+			log.Println(i)
 		} else {
 			_, err := io.WriteString(w, string(b))
 			if err != nil {
