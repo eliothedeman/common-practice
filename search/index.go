@@ -1,18 +1,9 @@
 package search
 
 import (
-	"strconv"
+	"encoding/json"
 	"sync"
 )
-
-type KeyPointer struct {
-	Key, Val string
-	Pointer  int64
-}
-
-func (k *KeyPointer) String() string {
-	return "Key: " + k.Key + " Pointer: " + strconv.Itoa(int(k.Pointer))
-}
 
 // Index is the datatype that will be searched against in the ndb instance
 type Index struct {
@@ -33,7 +24,6 @@ func (i *Index) unlock() {
 
 // UpdateIndex adds a new FetchKey to the index
 func (i *Index) UpdateIndex(k *KeyPointer) {
-
 	i.lock()
 	i.Children[uint64(len(i.Children))] = k
 	i.unlock()
@@ -44,4 +34,19 @@ func NewIndex() *Index {
 	i := &Index{Mutex: &sync.Mutex{}}
 	i.Children = make(map[uint64]*KeyPointer)
 	return i
+}
+
+// MarshalJSON  returns a json encoded version of the Index
+func (i *Index) MarshalJSON() ([]byte, error) {
+	// convert the map of children to an array
+	arr := make([]*KeyPointer, len(i.Children))
+	for x := range arr {
+		arr[x] = i.Children[uint64(x)]
+	}
+	// create a map for encoding
+	m := make(map[string]interface{})
+	m["children"] = arr
+	m["key"] = i.ThisKey
+
+	return json.Marshal(m)
 }

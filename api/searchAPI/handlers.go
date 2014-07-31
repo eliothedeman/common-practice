@@ -50,9 +50,8 @@ func Insert(w http.ResponseWriter, r *Request) {
 
 // Select is the APIHandler for th select action
 func Select(w http.ResponseWriter, r *Request) {
-	log.Println(r.Data)
 	if _, ok := DBS[r.Target]; ok {
-		i := DBS[r.Target].SelectAll(r.Data)
+		i := DBS[r.Target].Select(r.Data)
 		// if the returned value is nil (doesn't exist).
 		// return an empty json set to the client.
 		if i == nil {
@@ -62,7 +61,7 @@ func Select(w http.ResponseWriter, r *Request) {
 		b, err := json.Marshal(i)
 		if err != nil {
 			http.Error(w, "Bad Data "+err.Error(), 500)
-			log.Println(i)
+			log.Println(err)
 		} else {
 			_, err := io.WriteString(w, string(b))
 			if err != nil {
