@@ -6,9 +6,10 @@ func SplitData(data, tag string) []*KeyPointer {
 	x := 0
 	for l := 0; l < len(data); l++ {
 		for i := 0; i+l < len(data); i++ {
-			keys[x] = &KeyPointer{Key: data[l : l+i], Val: tag, Pointer: int64(i + l)}
+			keys[x] = &KeyPointer{Key: data[l : l+i], Val: tag, Pointer: int64(l)}
 			x += 1
 		}
 	}
+	keys[0] = &KeyPointer{Key: data, Val: tag, Pointer: int64(0)}
 	return keys
 }

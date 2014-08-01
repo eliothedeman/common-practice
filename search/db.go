@@ -64,7 +64,9 @@ func (s *SearchDb) CreateIndexIfNotExist(key string) {
 	if s.Select(key) != nil {
 		return
 	}
-	s.Insert(key, NewIndex())
+	n := NewIndex()
+	n.ThisKey = key
+	s.Insert(key, n)
 }
 
 // CreateAndUpdateIndicies creates and updates a new set of indicies from a dataset
