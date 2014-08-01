@@ -13,6 +13,17 @@ type Part struct {
 }
 
 // Measure represents a measure of music
+type Measure struct {
+	Notes []Note `json:"notes"`
+	Key   Key    `json:"key"`
+}
+
+// Note represents a note in a measure of music
+type Note struct {
+	Pitch Pitch `json:"pitch"`
+	Rest  bool  `json:"rest"`
+}
+
 // Movement represents a movement from a piece of music
 type Movement struct {
 	Index      uint8       `json:"index"`

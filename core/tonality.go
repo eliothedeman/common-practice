@@ -2,7 +2,7 @@ package core
 
 var (
 	// these represent the pitch alterations from a major scale of each of the modes
-	// This should be treated as a constant and shot not be changed.
+	// This should be treated as a constant and should not be changed.
 	MODES = map[string]Mode{
 		"major":      []int8{0, 0, 0, 0, 0, 0, 0},
 		"dorian":     []int8{0, 0, -1, 0, 0, 0, -1},
@@ -20,7 +20,7 @@ type Mode []int8
 // Key holds key signature information
 type Key struct {
 	// tonal center
-	Center int8 `json:"center"`
+	TonelCenter Pitch `json:"tonelCenter"`
 	// positive numbers are sharps, negative are flats
 	Fifths int8 `json:"fifths"`
 	// 1-7 represent the 7 church modes
@@ -41,3 +41,6 @@ type KeyChange struct {
 	OldKey Key `json:"oldKey"`
 	NewKey Key `json:"newKey"`
 }
+
+// Pitch represents a note's pitch
+type Pitch uint8
