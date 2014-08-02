@@ -62,7 +62,14 @@ func parseMeasures(m []mxl.Measure) []core.Measure {
 func parseNotes(notes []mxl.Note) []core.Note {
 	n := make([]core.Note, len(notes))
 	for i := range m {
-		n[i].Pitch = core.Pitch(parsePitch(notes[i].Pitch) + notes[i].Accidental)
+		// if the note is actually a rest, don't bother figuring out the pitch
+		if notes[i].Rest.Local == "rest" {
+			n[i].Rest = true
+		} else {
+			// a notes pitch is calculated by xml pitch(0-11) * octave + acidental (-2...2)
+			n[i].Pitch = core.Pitch(parsePitch(notes[i].Pitch) + notes[i].Accidental)
+		}
+
 	}
 }
 
