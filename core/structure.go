@@ -2,14 +2,14 @@ package core
 
 // Piece represents a common practie piece of music
 type Piece struct {
-	Title     string     `json:"title"`
-	Movements []Movement `json:"movements"`
+	Title string `json:"title"`
+	Parts []Part `json:"part"`
 }
 
 // Part represents an individuale part in a piece of music i.e. violin 1, trumpet 3
 type Part struct {
-	Name      string     `json:"name"`
-	Movements []Movement `json:"movements"`
+	Name     string    `json:"name"`
+	Measures []Measure `json:"measures"`
 }
 
 // Measure represents a measure of music
