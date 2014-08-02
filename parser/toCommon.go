@@ -35,7 +35,7 @@ func (t *toCommon) Do(m *Manager) {
 	p.Title = t.Doc.Title
 	p.Parts = make([]core.Part, len(t.Doc.Parts))
 	for i := 0; i < len(p.Parts); i++ {
-
+		p.Parts[i] = parseParts(t.Doc.Parts[i])
 	}
 
 }
@@ -66,7 +66,7 @@ func parseNotes(notes []mxl.Note) []core.Note {
 		if notes[i].Rest.Local == "rest" {
 			n[i].Rest = true
 		} else {
-			// a notes pitch is calculated by xml pitch(0-11) * octave + acidental (-2...2)
+			// a notes pitch is calculated by mxl.Pitch(0-11) * octave + acidental(-2...2)
 			n[i].Pitch = core.Pitch(parsePitch(notes[i].Pitch) + notes[i].Accidental)
 		}
 
