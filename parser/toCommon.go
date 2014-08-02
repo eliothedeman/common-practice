@@ -40,7 +40,8 @@ func (t *toCommon) Do(m *Manager) {
 
 }
 
-func parseParks(p []mxl.Part) []core.Part {
+// parseParts mxl.Part -> core.Part
+func parseParts(p []mxl.Part) []core.Part {
 	n := make([]core.Part, len(p))
 	for i := range p {
 		n[i].Name = p[i].Id
@@ -48,6 +49,7 @@ func parseParks(p []mxl.Part) []core.Part {
 	}
 }
 
+// parseMeasurs mxl.Measure -> core.Measure
 func parseMeasures(m []mxl.Measure) []core.Measure {
 	n := make([]core.Measure, len(m))
 	for i := range m {
@@ -56,6 +58,7 @@ func parseMeasures(m []mxl.Measure) []core.Measure {
 	}
 }
 
+// parsenotes mxl.Note -> core.Note
 func parseNotes(notes []mxl.Note) []core.Note {
 	n := make([]core.Note, len(notes))
 	for i := range m {
@@ -63,6 +66,7 @@ func parseNotes(notes []mxl.Note) []core.Note {
 	}
 }
 
+// parsePitch mxl.Pitch -> core.Pitch
 func parsePitch(m mxl.Pitch) core.Pitch {
 	return core.Pitch(m.Octave*11 + PITCH_TO_INT[m.Step])
 }
