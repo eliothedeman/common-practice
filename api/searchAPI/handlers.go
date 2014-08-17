@@ -28,6 +28,11 @@ func Route(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, JSON_FORMATTING_ERROR+err.Error(), 400)
 		return
 	}
+	// validate the request
+	err = req.validate()
+	if err != nil {
+
+	}
 	// Route Request by action type
 	HANDLERS[req.Action](w, &req)
 
@@ -76,3 +81,5 @@ func Select(w http.ResponseWriter, r *Request) {
 	}
 
 }
+
+// APIError sends back an API Error to the requester
