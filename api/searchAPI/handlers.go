@@ -2,6 +2,7 @@ package searchAPI
 
 import (
 	"encoding/json"
+	"github.com/eliothedeman/common-practice/error_codes"
 	"io"
 	"io/ioutil"
 	"log"
@@ -17,24 +18,25 @@ type APIHandler func(http.ResponseWriter, *Request)
 
 // Route is the central routing function for the root endpoint
 func Route(w http.ResponseWriter, r *http.Request) {
-	req := Request{}
+	req := &Request{}
 	b, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		log.Println(err)
+		http.Error(w, JSON_FORMATTING_ERROR+err.Error(), error_codes.API_INVALID_REQUEST)
 		return
 	}
 	err = json.Unmarshal(b, &req)
 	if err != nil {
-		http.Error(w, JSON_FORMATTING_ERROR+err.Error(), 400)
+		http.Error(w, JSON_FORMATTING_ERROR+err.Error(), error_codes.API_INVALID_REQUEST)
 		return
 	}
 	// validate the request
 	err = req.validate()
 	if err != nil {
-
+		http.Error(w, JSON_FORMATTING_ERROR+err.Error(), error_codes.API_INVALID_REQUEST)
+		return
 	}
 	// Route Request by action type
-	HANDLERS[req.Action](w, &req)
+	HANDLERS[req.Action](w, req)
 
 }
 

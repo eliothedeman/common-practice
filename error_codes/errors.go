@@ -1,4 +1,4 @@
-package api
+package error_codes
 
 // api error codes
 const (
@@ -7,6 +7,7 @@ const (
 	API_INVALID_DATA            = 1002
 	API_INVALID_VERSION         = 1003
 	API_LOCATION_DOES_NOT_EXIST = 1004
+	API_INVALID_REQUEST         = 1005
 )
 
 type api_error struct {
