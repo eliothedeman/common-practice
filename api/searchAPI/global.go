@@ -23,6 +23,7 @@ func init() {
 	// realitive
 	DBS["r-pitch"] = search.NewSearchDb("r-pitch")
 	DBS["r-rhythm"] = search.NewSearchDb("r-rhythm")
+	// single
 	DBS["rhythm"] = search.NewSearchDb("rhythm")
 	DBS["key"] = search.NewSearchDb("key")
 }
