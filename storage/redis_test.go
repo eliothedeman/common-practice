@@ -21,7 +21,7 @@ func TestSetGet(t *testing.T) {
 // BenchmarkSet benchmark the SET command to the redis server
 func BenchmarkSetPoolsize10(b *testing.B) {
 	setValue := []byte("set-test-value")
-	r, _ := NewRedis(":6379", 100)
+	r, _ := NewRedis(":6379", 10)
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
