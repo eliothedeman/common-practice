@@ -13,10 +13,10 @@ func (r *Redis) Get(s string) ([]byte, error) {
 	b, err := c.Do("GET", s)
 	if err != nil {
 		r.Connections <- c
-		return b, err
+		return []byte(b.([]byte)), err
 	}
 	r.Connections <- c
-	return []byte(b), err
+	return []byte(b.([]byte)), err
 
 }
 
@@ -24,7 +24,7 @@ func (r *Redis) Get(s string) ([]byte, error) {
 func (r *Redis) Set(s string, b []byte) error {
 	c := <-r.Connections
 	_, err := c.Do("SET", s, b)
-	r.Connections < -c
+	r.Connections <- c
 	return err
 }
 
