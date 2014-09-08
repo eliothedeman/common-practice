@@ -1,4 +1,4 @@
-package error_codes
+package api
 
 // api error codes
 const (
@@ -10,7 +10,7 @@ const (
 	API_INVALID_REQUEST         = 1005
 )
 
-type api_error struct {
+type Api_Error struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
 }
