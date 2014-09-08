@@ -2,19 +2,22 @@ package searchAPI
 
 import (
 	"errors"
+	"net/http"
 )
 
 // Request represents an api request
 type Request struct {
-	Action   string  `json:"action"`
-	Data     string  `json:"data"`
-	Version  float32 `json:"version"`
-	Target   string  `json:"target"`
-	Location string  `json:"location"`
+	Action          string  `json:"action"`
+	Data            string  `json:"data"`
+	Version         float32 `json:"version"`
+	Target          string  `json:"target"`
+	Location        string  `json:"location"`
+	Response        map[string]interface{}
+	ResponseWritter http.ResponseWriter
 }
 
-// validate is a sanity check for a request. If request is valid, return nil
-func (r *Request) validate() error {
+// Validate is a sanity check for a request. If request is valid, return nil
+func (r *Request) Validate() error {
 
 	// check that the target and action are not empty strings
 	if r.Action == "" || r.Target == "" {
@@ -32,4 +35,9 @@ func (r *Request) validate() error {
 	}
 
 	return nil
+}
+
+// Execute the searchAPI request
+func (r *Request) Execute() error {
+	HANDLERS[r.Action](r.ResponseWritter, r)
 }

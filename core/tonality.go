@@ -1,8 +1,8 @@
 package core
 
+// these represent the pitch alterations from a major scale of each of the modes
+// This should be treated as a constant and should not be changed.
 var (
-	// these represent the pitch alterations from a major scale of each of the modes
-	// This should be treated as a constant and should not be changed.
 	MODES = map[string]Mode{
 		"major":      []int8{0, 0, 0, 0, 0, 0, 0},
 		"dorian":     []int8{0, 0, -1, 0, 0, 0, -1},
