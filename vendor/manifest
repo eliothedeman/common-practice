@@ -1,0 +1,11 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/eliothedeman/go-mxl",
+			"repository": "https://github.com/eliothedeman/go-mxl",
+			"revision": "97419e6542c36189b29cb6bfbb7c3aa747f9a4ac",
+			"branch": "master"
+		}
+	]
+}
