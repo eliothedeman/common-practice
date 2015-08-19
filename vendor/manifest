@@ -6,6 +6,19 @@
 			"repository": "https://github.com/eliothedeman/go-mxl",
 			"revision": "97419e6542c36189b29cb6bfbb7c3aa747f9a4ac",
 			"branch": "master"
+		},
+		{
+			"importpath": "github.com/tinylib/msgp/msgp",
+			"repository": "https://github.com/tinylib/msgp",
+			"revision": "cd4fb1548c31d88af25205dc021be20935aec720",
+			"branch": "master",
+			"path": "/msgp"
+		},
+		{
+			"importpath": "github.com/philhofer/fwd",
+			"repository": "https://github.com/philhofer/fwd",
+			"revision": "4dbda5e2904d044d23cc4bef84e8360c458caf7f",
+			"branch": "master"
 		}
 	]
 }
